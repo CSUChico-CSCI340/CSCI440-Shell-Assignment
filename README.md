@@ -14,7 +14,7 @@ The only “hand-in” will be electronic. Any clarifications and revisions to t
 I recommend you use an Ubuntu Linux virtual machine to complete this assignment. Alternatively, you can
 use ecc-linux (although this hasn’t been tested) or your native Linux install.
 
-Download this repository as a zip file and then extract it where you would like to store your project files. An example for downloading and extracting the zip file is below, assuming you are in your home directory:
+Download this repository as a zip file and then extract it where you would like to store your project files. An example for downloading and extracting the zip file is below, assuming you are in your home directory (you may remove the main.zip file after unzipping it):
 
 ```bash
 ~$ wget https://github.com/CSUChico-CSCI340/CSCI440-Shell-Assignment/archive/refs/heads/main.zip
@@ -36,7 +36,7 @@ Looking at the *tsh.c* (tiny shell) file, you will see that it contains a functi
 shell. To help you get started, the less interesting functions have already been implemented; some of these
 are in helper-routines.c. Your assignment is to complete the remaining empty functions listed
 below. As a sanity check for you, the approximate number of lines of code for each of these functions have
-been listed in the reference solution (which includes lots of comments).
+been listed in the reference solution (which includes lots of comments -- if your functions are longer, ask for clarification or assistance).
 
 * eval: Main routine that parses and interprets the command line. [70 lines]
 * builtin_cmd:  Recognizes and interprets the built-in commands: quit,fg,bg, and jobs. [25 lines]
@@ -55,9 +55,8 @@ tsh> [type commands to your shell here]
 
 ## General Overview of Unix Shells
 
-A *shell* is an interactive command-line interpreter that runs programs on behalf of the user. A shell repeat-
-edly prints a prompt, waits for a *command line* on *stdin*, and then carries out some action, as directed by
-the contents of the command line.
+A *shell* is an interactive command-line interpreter that runs programs on behalf of the user. A shell repeatedly prints a prompt, waits for a *command line* on *stdin*, 
+and then carries out some action, as directed by the contents of the command line.
 
 The  command  line  is  a  sequence  of  ASCII  text  words  delimited  by  whitespace.   The  first  word  in  the
 command line is either the name of a built-in command or the pathname of an executable file. The remaining
@@ -69,7 +68,8 @@ as a *job*. In general, a job can consist of multiple child processes connected 
 
 If the command line ends with an ampersand ”*&*”, then the job runs in the
 *background*, which means that the shell does not wait for the job to terminate before printing the prompt and awaiting the next command
-line.  Otherwise, the job runs in the *foreground*, which means that the shell waits for the job to terminate before awaiting the next command line.  Thus, at any point in time, at most one job can be running in the foreground. However, an arbitrary number of jobs can run in the background.
+line.  Otherwise, the job runs in the *foreground*, which means that the shell waits for the job to terminate before awaiting the next command line.  
+Thus, at any point in time, at most one job can be running in the foreground. However, an arbitrary number of jobs can run in the background.
 
 For example, typing the command line
 
@@ -84,7 +84,7 @@ tsh>/bin/ls -l -d
 ```
 
 runs the *ls* program in the foreground. By convention, the shell ensures that when the *ls* program begins
-executing its main routine.
+executing its main routine,
 
 ```bash
   int main(int argc, char* argv[])
@@ -122,8 +122,7 @@ Your *tsh* shell should have the following features:
 * *tsh* need not support pipes ( | ) or I/O redirection (< and >).
 * Typing *ctrl-c* (*ctrl-z*) should cause a SIGINT (SIGTSTP) signal to be sent to the current foreground job, as well as any descendants of that job (e.g., any child processes that it forked). If there is no foreground job, then the signal should have no effect.
 * If the command line ends with an ampersand &, then *tsh* should run the job in the background. Otherwise, it should run the job in the foreground.
-* Each job can be identified by either a process ID (PID) or a job ID (JID), which is a positive integer
-assigned by *tsh*. Job IDs are used because some of the testing scripts need to manipulate certain jobs, and the process IDs change across runs.  JIDs should be denoted on the command line by the prefix ’*%*’. For example, “*%5*” denotes JID 5, and “*5*” denotes PID 5. (I have provided you with all of the routines you need for manipulating the job list.)
+* Each job can be identified by either a process ID (PID) or a job ID (JID), which is a positive integer assigned by *tsh*. Job IDs are used because some of the testing scripts need to manipulate certain jobs, and the process IDs change across runs.  JIDs should be denoted on the command line by the prefix ’*%*’. For example, “*%5*” denotes JID 5, and “*5*” denotes PID 5. (I have provided you with all of the routines you need for manipulating the job list.)
 
 * *tsh* should support the following built-in commands:
   * The *quit* command terminates the shell.
@@ -218,7 +217,7 @@ For your reference, *tshref.out* gives the output of the reference solution on a
 
 ## Hints
 
-* Read **Chapter  8** of *Computer  Systems:  A  Programmer’s  Perspective  (2nd  Edition)* by  Randal  E. Bryant, David R. O’Hallaron (You can rent it for the semester for ~$20)
+* Read **Chapter  8** of *Computer  Systems:  A  Programmer’s  Perspective  (2nd  Edition)* by  Randal  E. Bryant, David R. O’Hallaron (You can borrow the book through Meriam Library or purchase it for ~$40)
 * Use  the  trace  files  to  guide  the  development  of  your  shell.   Starting  with *trace01.txt*,  make sure that your shell produces the *identical* output as the reference shell.  Then move on to trace file *trace02.txt*, and so on.
 * The *waitpid, kill, fork, exec, setpgid, and sigprocmask* functions will come in very handy. The WUNTRACED and WNOHANG options to *waitpid* will also be useful.  These are described in detail in the optional text.
   * *exec* is a group of methods to execute a new program. You should look into which one is the best fit for the needs of this project.  

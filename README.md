@@ -1,33 +1,32 @@
-# CSCI340-Shell-Assignment
+# CSCI440-Shell-Assignment
 ## Writing Your Own Unix Shell
 Adapted from a University of Colorado shell lab assignment that gives students practice with exceptional control flow.
 
 
 ## Introduction
-The purpose of this assignment is to become more familiar with the concepts of process control and signal-
-ing. You’ll do this by writing a simple Unix shell program that supports job control.
+The purpose of this assignment is to become more familiar with the concepts of process control and signaling. 
+You’ll do this by writing a simple Unix shell program that supports job control.
 
 ## Logistics
-The only “hand-in” will be electronic. Any clarifications and revisions to the assignment will be posted on
-my web page and emailed out to the class.
+The only “hand-in” will be electronic. Any clarifications and revisions to the assignment will be modified here and announced to the class during class or via Canvas.
 
 ## Hand Out Instructions
-I recommend you use a Ubuntu Linux virtual machine to complete this assignment. Alternatively, you can
-use jaguar (although this hasn’t been tested) or your native Linux install.
+I recommend you use an Ubuntu Linux virtual machine to complete this assignment. Alternatively, you can
+use ecc-linux (although this hasn’t been tested) or your native Linux install.
 
-Download this repository as a zip file and then extract it where you would like to store your project files. Alternatively, I'd recommend cloning this repository as a local repository. An example for cloning is below assuming you are in your home directory:
+Download this repository as a zip file and then extract it where you would like to store your project files. An example for downloading and extracting the zip file is below, assuming you are in your home directory:
 
 ```bash
-~$ wget https://github.com/CSUChico-CSCI340/CSCI340-Shell-Assignment/archive/refs/heads/main.zip
+~$ wget https://github.com/CSUChico-CSCI340/CSCI440-Shell-Assignment/archive/refs/heads/main.zip
 ~$ unzip main.zip
-~$ cd CSCI340-Shell-Assignment/shlab-handout/
+~$ cd CSCI440-Shell-Assignment/shlab-handout/
 ~$ make
 ```
 
 This does the following:
 
-1. Clones the remote repository to your local computer in the folder CSCI340-Shell-Assignment
-2. Change directory to the shlab-handout files in the CSCI340-Shell-Assignment folder in one step
+1. Clones the remote repository to your local computer in the folder CSCI440-Shell-Assignment
+2. Change directory to the shlab-handout files in the CSCI440-Shell-Assignment folder in one step
 3. Test that the project files build correctly in their initial state.
 4. Now that you've got the files and they work, enter your name and student ID in the header comment at the top of
 tsh.c.

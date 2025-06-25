@@ -143,11 +143,10 @@ void eval(char *cmdline)
 
 /////////////////////////////////////////////////////////////////////////////
 //
-// builtin_cmd - If the user has typed a built-in command then execute
+// builtin_cmd - If the user has typed a built-in command, then execute
 // it immediately. The command name would be in argv[0] and
-// is a C string. We've cast this to a C++ string type to simplify
-// string comparisons; however, the do_bgfg routine will need
-// to use the argv array as well to look for a job number.
+// is a C string (do not convert to a C++ string type). The do_bgfg routine 
+// will need to use the argv array to look for a job number.
 //
 int builtin_cmd(char **argv)
 {

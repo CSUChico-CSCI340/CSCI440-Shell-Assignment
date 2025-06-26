@@ -19,8 +19,6 @@ void handler(int sig)
     int status
     while ((pid = waitpid(-1, &status, WNOHANG|WUNTRACED)) > 0) /* Reap a zombie child */
 	deletejob(pid); /* Delete the child from the job list */
-    if (errno != ECHILD)
-	unix_error("waitpid error");
 }
     
 int main(int argc, char **argv)

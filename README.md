@@ -138,6 +138,7 @@ the background. The *<job>* argument can be either a PID or a JID.
 the foreground. The *<job>* argument can be either a PID or a JID.
 
 * *tsh* should reap all of its zombie children.  If any job terminates because it receives a signal that it didn’t catch, then *tsh* should recognize this event and print a message with the job’s PID and a description of the offending signal.
+  * Recall that reaping a zombie child requires calling a system call (e.g. waitpid) to collect the child's exit status and remove its entry from the kernel's process table.
 
 ## Checking Your Work
 
@@ -231,7 +232,12 @@ For your reference, *tshref.out* gives the output of the reference solution on a
 * Read **Chapter  8** of *Computer  Systems:  A  Programmer’s  Perspective  (2nd  Edition)* by  Randal  E. Bryant, David R. O’Hallaron (You can borrow the book through Meriam Library or purchase it for ~$40)
 * Use  the  trace  files  to  guide  the  development  of  your  shell.  Starting  with *trace01.txt*, make sure that your shell produces the *identical* output as the reference shell.  Then move on to trace file *trace02.txt*, and so on.
 * The `waitpid`, `kill`, `fork`, `exec`, `setpgid`, and `sigprocmask` functions will come in very handy. The `WUNTRACED` and `WNOHANG` options to `waitpid` will also be useful.  These are described in detail in the optional text. You can also look up the functions and options in the Linux man pages -- either type `man` followed by a command in a terminal, or look up the man pages online ([https://www.man7.org/linux/man-pages/](https://www.man7.org/linux/man-pages/) and [https://linux.die.net/man/](https://linux.die.net/man/) are a couple options).
-  * `exec` is a group of methods to execute a new program. You should look into which one is the best fit for the needs of this project.  
+  * `exec` is a group of methods to execute a new program. You should look into which one is the best fit for the needs of this project.
+  * `fork` creates a new process by duplicating the calling process.
+  * `kill` sends a specified signal to specified processes or process groups.
+  * `setpgid` sets the process group ID of a specified process to a new process group ID.
+  * `sigprocmask` is used to fetch and/or change the signal mask of the calling thread (using this helps address a potential race condition).
+  * `waitpid` is used to wait for state changes in a child of the calling process (e.g. wait for the child to stop or terminate).
 * When you implement your signal handlers, be sure to send `SIGINT` and `SIGTSTP` signals to the entire foreground process group, using ”*-pid*” instead of ”*pid*” in the argument to the kill function. The *sdriver.pl* program tests for this error.
 * One of the tricky parts of the assignment is deciding on the allocation of work between the *waitfg* and *sigchld_handler* functions. I recommend the following approach:
   * In `waitfg`, use a busy loop around the sleep function.

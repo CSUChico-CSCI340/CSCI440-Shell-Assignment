@@ -106,7 +106,12 @@ tsh> /bin/ls -l -d &
 
 runs the *ls* program in the background.
 
-Unix shells support the notion of *job control*, which allows users to move jobs back and forth between background and foreground, and to change the process state (running, stopped, or terminated) of the processes in a job. Typing *ctrl-c* causes a SIGINT signal to be delivered to each process in the foreground job. The default action for SIGINT is to terminate the process. Similarly, typing *ctrl-z* causes a SIGTSTP signal to be delivered to each process in the foreground job. The default action for SIGTSTP is to place a process in the stopped state, where it remains until it is awakened by the receipt of a SIGCONT signal. Unix shells also provide various built-in commands that support job control. For example:
+Unix shells support the notion of *job control*, which allows users to move jobs back and forth between background and foreground, and to change the process state (running, stopped, or terminated) of the processes in a job. 
+
+* Typing *ctrl-c* causes a SIGINT signal to be delivered to each process in the foreground job. The default action for SIGINT is to terminate the process.
+* Similarly, typing *ctrl-z* causes a SIGTSTP signal to be delivered to each process in the foreground job. The default action for SIGTSTP is to place a process in the stopped state, where it remains until it is awakened by the receipt of a SIGCONT signal.
+
+Unix shells also provide various built-in commands that support job control. For example:
 
 * jobs: List the running and stopped background jobs.
 * bg <job>: Change a stopped background job to a running background job.
@@ -179,6 +184,12 @@ or
 $ make rtest01
 ```
 
+To compare your output against the reference output, you can run the trace driver on your shell and redirect the output to a file, run the trace driver on the reference shell and redirect the output to a different file, and then do a diff or vimdiff on the files. Here is an example for how you can do all of this in one step for a specific test:
+
+```bash
+$ make test01 > my.out && make rtest01 > ref.out && vimdiff my.out ref.out
+```
+
 For your reference, *tshref.out* gives the output of the reference solution on all races.  This might be more convenient for you than manually running the shell driver on all trace files. The neat thing about the trace files is that they generate the same output you would have gotten had you run your shell interactively (except for an initial comment that identifies the trace). For example:
 
 ```bash
@@ -218,7 +229,7 @@ For your reference, *tshref.out* gives the output of the reference solution on a
 ## Hints
 
 * Read **Chapter  8** of *Computer  Systems:  A  Programmer’s  Perspective  (2nd  Edition)* by  Randal  E. Bryant, David R. O’Hallaron (You can borrow the book through Meriam Library or purchase it for ~$40)
-* Use  the  trace  files  to  guide  the  development  of  your  shell.   Starting  with *trace01.txt*,  make sure that your shell produces the *identical* output as the reference shell.  Then move on to trace file *trace02.txt*, and so on.
+* Use  the  trace  files  to  guide  the  development  of  your  shell.  Starting  with *trace01.txt*, make sure that your shell produces the *identical* output as the reference shell.  Then move on to trace file *trace02.txt*, and so on.
 * The `waitpid`, `kill`, `fork`, `exec`, `setpgid`, and `sigprocmask` functions will come in very handy. The `WUNTRACED` and `WNOHANG` options to `waitpid` will also be useful.  These are described in detail in the optional text. You can also look up the functions and options in the Linux man pages -- either type `man` followed by a command in a terminal, or look up the man pages online ([https://www.man7.org/linux/man-pages/](https://www.man7.org/linux/man-pages/) and [https://linux.die.net/man/](https://linux.die.net/man/) are a couple options).
   * `exec` is a group of methods to execute a new program. You should look into which one is the best fit for the needs of this project.  
 * When you implement your signal handlers, be sure to send `SIGINT` and `SIGTSTP` signals to the entire foreground process group, using ”*-pid*” instead of ”*pid*” in the argument to the kill function. The *sdriver.pl* program tests for this error.

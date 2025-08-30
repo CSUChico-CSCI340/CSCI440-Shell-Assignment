@@ -274,6 +274,7 @@ Your solution shell will be tested for correctness on a Linux machine using the 
   * It is fine for the PID in your output to differ, but the rest of the line should match exactly.
 * The output of the */bin/ps* commands in *trace11.txt*, *trace12.txt*, and *trace13.txt* will be different from run to run.   However,  the running states of any *mysplit* processes in the output of the */bin/ps* command should be identical.
   * Example of */bin/ps/* output for a *mysplit* process: `2393670 pts/0    T      0:00 ./mysplit 4`
+  * The state output (STAT column) should be the same and the number of *mysplit* processes should be the same.
 
 The “correctness” part of your assignment will be computed based on how many of the traces you correctly execute using following distribution:
 * 10% - traces 1-3

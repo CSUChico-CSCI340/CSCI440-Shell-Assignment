@@ -263,14 +263,17 @@ run  these  programs  from  your  shell.   Stick  with  simple  text-based  prog
     * The *shell.c* file could be useful to review, given that you are creating a tiny shell for this assignment. Your code will have a number of key differences from this shell code, but it is still helpful as a reference.
     * For an example of how to block and unblock signals for a process using a signal mask, the *procmask.c* file may be helpful.
     * Other files in this directory contain example usage for various routines you will be using in your implementation.
-    * Be aware that the examples in the *ecf/* directory utilize wrappers for the process control functions (see *csapp.c* and *csapp.h*). Your code should not use the wrapper functions (with the exception of `Signal()`, which is provided in the shlab-handout *helper-routines*).
+    * Be aware that the examples in the *ecf/* directory utilize wrappers for the process control functions (see *csapp.c* and *csapp.h*). Your *tsh.c* program should not use the wrapper functions (with the exception of `Signal()`, which is provided in the shlab-handout *helper-routines*).
       
 ## Evaluation
 
 Your solution shell will be tested for correctness on a Linux machine using the same shell driver and trace files that were included in your assignment directory.  Your shell should produce **identical** output on these traces as the reference shell, with only two exceptions:
 
-* The PIDs can (and will) be different.
+* The PIDs can (and will) be different. For example:
+  * In this line of reference output, the PID is 2393135: `[1] (2393135) ./myspin 1 &`
+  * It is fine for the PID in your output to differ, but the rest of the line should match exactly.
 * The output of the */bin/ps* commands in *trace11.txt*, *trace12.txt*, and *trace13.txt* will be different from run to run.   However,  the running states of any *mysplit* processes in the output of the */bin/ps* command should be identical.
+  * Example of */bin/ps/* output for a *mysplit* process: `2393670 pts/0    T      0:00 ./mysplit 4`
 
 The “correctness” part of your assignment will be computed based on how many of the traces you correctly execute using following distribution:
 * 10% - traces 1-3

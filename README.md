@@ -254,7 +254,17 @@ run  these  programs  from  your  shell.   Stick  with  simple  text-based  prog
 * When you run your shell from the standard Unix shell, your shell is running in the foreground process group.  If your shell then creates a child process, by default that child will also be a member of the foreground process group. Since typing *ctrl-c* sends a `SIGINT` to every process in the foreground group, typing *ctrl-c* will send a `SIGINT` to your shell, as well as to every process that your shell created, which obviously isn’t correct.
 
   * Here  is  the  workaround: After the `fork`, but before the `execve`, the child process should call `setpgid(0, 0)`, which puts the child in a new process group whose group ID is identical to the child’s PID. This ensures that there will be only one process, your shell, in the foreground process group.  When you type *ctrl-c*, the shell should catch the resulting `SIGINT` and then forward it to the appropriate foreground job (or more precisely, the process group that contains the foreground job).
-
+ 
+* You should only be making changes to the *tsh.c* file, but the rest of the provided code in this handout is helpful, so it is worthwhile to familiarize yourself with it.
+  * In the *shlab-handout/* directory:
+    * Make sure you have looked at *globals.h*, *helper-routines.c* and *helper-routines.h*, and *jobs.c* and *jobs.h*. The provided code in *tsh.c* is already using some of the provided globals and helper routines; your code will need to make use of several job helper routines to manipulate the job list.
+    * Other programs in this directory are helpful for testing your implementation.
+  * In the *ecf/* directory:
+    * The *shell.c* file could be useful to review, given that you are creating a tiny shell for this assignment. Your code will have a number of key differences from this shell code, but it is still helpful as a reference.
+    * For an example of how to block and unblock signals for a process using a signal mask, the *procmask.c* file may be helpful.
+    * Other files in this directory contain example usage for various routines you will be using in your implementation.
+    * Be aware that the examples in the *ecf/* directory utilize wrappers for the process control functions (see *csapp.c* and *csapp.h*). Your code should not use the wrapper functions (with the exception of `Signal()`, which is provided in the shlab-handout *helper-routines*).
+      
 ## Evaluation
 
 Your solution shell will be tested for correctness on a Linux machine using the same shell driver and trace files that were included in your assignment directory.  Your shell should produce **identical** output on these traces as the reference shell, with only two exceptions:

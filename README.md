@@ -25,12 +25,13 @@ Download this repository as a zip file and then extract it where you would like 
 
 This does the following:
 
-1. Clones the remote repository to your local computer in the folder CSCI440-Shell-Assignment
-2. Change directory to the shlab-handout files in the CSCI440-Shell-Assignment folder in one step
-3. Test that the project files build correctly in their initial state.
-4. Now that you've got the files and they work, enter your name and student ID in the header comment at the top of
-tsh.c.
+1. Download the CSCI440-Shell-Assignment as a zip file
+2. Extract files from ZIP archives while preserving directory structures and permissions
+3. Change directory to the shlab-handout files in the CSCI440-Shell-Assignment folder in one step
+4. Test that the project files build correctly in their initial state.
 
+Now that you've got the files and they work, enter your name and student ID in the header comment at the top of
+tsh.c.
 
 Looking at the *tsh.c* (tiny shell) file, you will see that it contains a functional skeleton of a simple Unix
 shell. To help you get started, the less interesting functions have already been implemented; some of these
